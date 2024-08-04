@@ -96,7 +96,7 @@ if __name__ == "__main__":
     if args.nuke:
         nuke_password = getpass.getpass("Enter the nuke password (will erase the USB drive!): ")
         add_nuke_feature(drive, nuke_password)
-    elif args.encryptpersistence:
+    elif args.encrypt_persistence:
         setup_persistence_and_nuke(drive)
     else:
         create_kali_live_usb(drive, args.iso)
