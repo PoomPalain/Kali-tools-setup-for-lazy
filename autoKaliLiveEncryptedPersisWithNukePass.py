@@ -42,27 +42,27 @@ def create_kali_live_usb(drive, iso_path):
 def setup_persistence_and_nuke(drive):
     """Guides the user through setting up persistence and nuke manually."""
 
-    print("\n--- Persistence and Nuke Setup Instructions ---")
+    print("--- Persistence and Nuke Setup Instructions ---\n")
 
     # Persistence instructions
-    print(f"\n1. fdisk {drive} <<< $(printf 'n\np\n\n\n\nw')")
-    print(f"2. cryptsetup --verbose --verify-passphrase luksFormat {drive}3")
-    print(f"3. cryptsetup luksOpen {drive}3 my_usb")
-    print(f"4. mkfs.ext4 -L persistence /dev/mapper/my_usb")
-    print(f"5. e2label /dev/mapper/my_usb persistence")
-    print(f"6. mkdir -p /mnt/my_usb")
-    print(f"7. mount /dev/mapper/my_usb /mnt/my_usb")
-    print(f"8. echo '/ union' | sudo tee /mnt/my_usb/persistence.conf")
-    print(f"9. umount /dev/mapper/my_usb")
-    print(f"10. cryptsetup luksClose /dev/mapper/my_usb")
+    print(f"sudo fdisk {drive} <<< $(printf 'n\np\n\n\n\nw')")
+    print(f"sudo cryptsetup --verbose --verify-passphrase luksFormat {drive}3")
+    print(f"sudo cryptsetup luksOpen {drive}3 my_usb")
+    print(f"sudo mkfs.ext4 -L persistence /dev/mapper/my_usb")
+    print(f"sudo e2label /dev/mapper/my_usb persistence")
+    print(f"sudo mkdir -p /mnt/my_usb")
+    print(f"sudo mount /dev/mapper/my_usb /mnt/my_usb")
+    print(f"echo '/ union' | sudo tee /mnt/my_usb/persistence.conf")
+    print(f"sudo umount /dev/mapper/my_usb")
+    print(f"sudo cryptsetup luksClose /dev/mapper/my_usb")
 
     # Nuke setup instructions
-    print(f"\n11. sudo apt install -y cryptsetup-nuke-password")
-    print(f"12. sudo dpkg-reconfigure cryptsetup-nuke-password")
-    print(f"13. cryptsetup luksHeaderBackup --header-backup-file luksheader.back {drive}3")
-    print(f"14. openssl enc -e -aes-256-cbc -in luksheader.back -out luksheader.back.enc")
-    print(f"15. openssl enc -d -aes-256-cbc -in luksheader.back.enc -out luksheader.back")
-    print(f"16. cryptsetup luksHeaderRestore --header-backup-file luksheader.back {drive}3")
+    print(f"sudo apt install -y cryptsetup-nuke-password")
+    print(f"sudo dpkg-reconfigure cryptsetup-nuke-password")
+    print(f"cryptsetup luksHeaderBackup --header-backup-file luksheader.back {drive}3")
+    print(f"openssl enc -e -aes-256-cbc -in luksheader.back -out luksheader.back.enc")
+    print(f"openssl enc -d -aes-256-cbc -in luksheader.back.enc -out luksheader.back")
+    print(f"cryptsetup luksHeaderRestore --header-backup-file luksheader.back {drive}3")
 
 
 def run_command(cmd):
